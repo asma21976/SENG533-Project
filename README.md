@@ -28,10 +28,19 @@
     ```
 2. from SENG533-Project dir, run:
     ```
-    ~/apache-jmeter-5.4.3/bin/jmeter.sh -n -t examples/jmeter/teastore_browse_nogui.jmx -Jhostname 10.1.1.1 -Jport 8080 -JnumUser 10 -Jrampup 1 -l test_provided_jmeter.log
+    java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t TeaStore/examples/jmeter/teastore_browse_nogui.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser 10 -JrampUp 1 -l test_jmeter.csv -n
     ```
 
 ##### if using LIMBO HTTP Load Generator
 
 1. ahh may not use this because we need to run load generator on a separate (local) machine
 
+
+##### if using Locust
+1. install pip3 (and python>=3.6)
+2. pip3 install locust
+3. add locust to path
+4. run test:
+    ```
+    locust -f TeaStore/examples/locust/locustfile.py --headless -u 100 -r 10
+    ```

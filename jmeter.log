@@ -1,0 +1,73 @@
+2024-02-13 06:43:27,384 INFO o.a.j.u.JMeterUtils: Setting Locale to en
+2024-02-13 06:43:27,416 INFO o.a.j.JMeter: Loading user properties from: /home/ubuntu/apache-jmeter-5.4.3/bin/user.properties
+2024-02-13 06:43:27,416 INFO o.a.j.JMeter: Loading system properties from: /home/ubuntu/apache-jmeter-5.4.3/bin/system.properties
+2024-02-13 06:43:27,416 INFO o.a.j.JMeter: Setting JMeter property: hostname=127.0.0.1
+2024-02-13 06:43:27,416 INFO o.a.j.JMeter: Setting JMeter property: port=8080
+2024-02-13 06:43:27,417 INFO o.a.j.JMeter: Setting JMeter property: numUser=10
+2024-02-13 06:43:27,417 INFO o.a.j.JMeter: Setting JMeter property: rampUp=1
+2024-02-13 06:43:27,431 INFO o.a.j.JMeter: Copyright (c) 1998-2021 The Apache Software Foundation
+2024-02-13 06:43:27,431 INFO o.a.j.JMeter: Version 5.4.3
+2024-02-13 06:43:27,431 INFO o.a.j.JMeter: java.version=11.0.19
+2024-02-13 06:43:27,431 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2024-02-13 06:43:27,431 INFO o.a.j.JMeter: os.name=Linux
+2024-02-13 06:43:27,432 INFO o.a.j.JMeter: os.arch=amd64
+2024-02-13 06:43:27,432 INFO o.a.j.JMeter: os.version=4.15.0-213-generic
+2024-02-13 06:43:27,434 INFO o.a.j.JMeter: file.encoding=UTF-8
+2024-02-13 06:43:27,434 INFO o.a.j.JMeter: java.awt.headless=true
+2024-02-13 06:43:27,434 INFO o.a.j.JMeter: Max memory     =1035993088
+2024-02-13 06:43:27,434 INFO o.a.j.JMeter: Available Processors =2
+2024-02-13 06:43:27,460 INFO o.a.j.JMeter: Default Locale=English
+2024-02-13 06:43:27,460 INFO o.a.j.JMeter: JMeter  Locale=English
+2024-02-13 06:43:27,461 INFO o.a.j.JMeter: JMeterHome=/home/ubuntu/apache-jmeter-5.4.3
+2024-02-13 06:43:27,461 INFO o.a.j.JMeter: user.dir  =/home/ubuntu/SENG533-Project
+2024-02-13 06:43:27,462 INFO o.a.j.JMeter: PWD       =/home/ubuntu/SENG533-Project
+2024-02-13 06:43:27,463 INFO o.a.j.JMeter: IP: 10.1.9.20 Name: performance-rac FullName: performance-rac
+2024-02-13 06:43:27,468 INFO o.a.j.s.FileServer: Default base='/home/ubuntu/SENG533-Project'
+2024-02-13 06:43:27,469 INFO o.a.j.s.FileServer: Set new base='/home/ubuntu/SENG533-Project/TeaStore/examples/jmeter'
+2024-02-13 06:43:27,754 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2024-02-13 06:43:27,784 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2024-02-13 06:43:27,788 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2024-02-13 06:43:27,792 INFO o.a.j.s.SaveService: Loading file: TeaStore/examples/jmeter/teastore_browse_nogui.jmx
+2024-02-13 06:43:27,870 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2024-02-13 06:43:27,883 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2024-02-13 06:43:27,883 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2024-02-13 06:43:27,883 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2024-02-13 06:43:27,883 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2024-02-13 06:43:27,883 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2024-02-13 06:43:27,884 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2024-02-13 06:43:27,933 INFO o.a.j.JMeter: Creating summariser <summary>
+2024-02-13 06:43:27,954 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2024-02-13 06:43:27,956 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2024-02-13 06:43:27,956 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2024-02-13 06:43:27,974 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2024-02-13 06:43:27,974 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2024-02-13 06:43:28,494 INFO o.a.j.JMeter: Running test (1707806608494)
+2024-02-13 06:43:28,567 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread-Gruppe
+2024-02-13 06:43:28,567 INFO o.a.j.e.StandardJMeterEngine: Starting 10 threads for group Thread-Gruppe.
+2024-02-13 06:43:28,567 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2024-02-13 06:43:28,567 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=10 ramp-up=1 delayedStart=false
+2024-02-13 06:43:28,602 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2024-02-13 06:43:28,602 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2024-02-13 06:43:28,608 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-1
+2024-02-13 06:43:28,633 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = performance-rac
+2024-02-13 06:43:28,639 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2024-02-13 06:43:28,642 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2024-02-13 06:43:28,642 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to ISO-8859-1
+2024-02-13 06:43:28,642 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2024-02-13 06:43:28,642 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2024-02-13 06:43:28,701 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-2
+2024-02-13 06:43:28,800 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-3
+2024-02-13 06:43:28,899 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-4
+2024-02-13 06:43:28,994 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-5
+2024-02-13 06:43:29,095 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-6
+2024-02-13 06:43:29,192 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-7
+2024-02-13 06:43:29,290 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-8
+2024-02-13 06:43:29,398 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-9
+2024-02-13 06:43:29,497 INFO o.a.j.t.JMeterThread: Thread started: Thread-Gruppe 1-10
+2024-02-13 06:43:30,058 INFO o.a.j.r.Summariser: summary +     74 in 00:00:02 =   47.4/s Avg:   105 Min:     0 Max:   484 Err:    45 (60.81%) Active: 10 Started: 10 Finished: 0
+2024-02-13 06:44:00,090 INFO o.a.j.r.Summariser: summary +   2344 in 00:00:30 =   78.0/s Avg:   127 Min:     0 Max:  1205 Err:  1465 (62.50%) Active: 10 Started: 10 Finished: 0
+2024-02-13 06:44:00,092 INFO o.a.j.r.Summariser: summary =   2418 in 00:00:32 =   76.5/s Avg:   126 Min:     0 Max:  1205 Err:  1510 (62.45%)
+2024-02-13 06:44:30,004 INFO o.a.j.r.Summariser: summary +   2690 in 00:00:30 =   89.9/s Avg:   111 Min:     0 Max:   978 Err:  1680 (62.45%) Active: 10 Started: 10 Finished: 0
+2024-02-13 06:44:30,004 INFO o.a.j.r.Summariser: summary =   5108 in 00:01:02 =   83.0/s Avg:   118 Min:     0 Max:  1205 Err:  3190 (62.45%)
+2024-02-13 06:44:35,808 INFO o.a.j.r.ResultCollector: Shutdown hook started
+2024-02-13 06:44:35,816 INFO o.a.j.r.ResultCollector: Shutdown hook ended
