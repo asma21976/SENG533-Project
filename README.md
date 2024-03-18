@@ -1,23 +1,31 @@
 ### SENG 533 TERM PROJECT
 
 #### setup instructions
+For most reliable performance, deploy microservices on RAC
 
 1. install docker
 2. install docker-compose
 3. deploy default teastore (without kieker) and enable monitoring with:
     ```
-    docker-compose -f ./TeaStore/examples/docker/docker-compose_default.yaml up -d
+    docker-compose -f ./TeaStore/examples/docker/docker-compose_new.yaml up -d
     (may have to change microservice ports if err)
     ```
 4. check all microservices are running with:
     ```
-    docker-compose -f ./TeaStore/examples/docker/docker-compose_default.yaml ps
+    docker-compose -f ./TeaStore/examples/docker/docker-compose_new.yaml ps
     ```
 5. stop microservices with:
     ```
-    docker-compose -f ./TeaStore/examples/docker/docker-compose_default.yaml down
+    docker-compose -f ./TeaStore/examples/docker/docker-compose_new.yaml down
     ```
 
+#### setup for multi-instance
+Note: WebUI, Auth, and DB do not require scaling
+
+ ```
+  docker-compose -f ./TeaStore/examples/docker/docker-compose_new.yaml up -d --scale persistence={NUM_INST} --scale image={NUM_INST}--scale recommender={NUM_INST} 
+
+```
 
 #### test instructions
 ##### if using jmeter

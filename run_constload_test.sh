@@ -16,16 +16,16 @@ else
     for user in "${user_list[@]}"
     do
 	echo "Starting auth test for ${user} users"
-	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_authentication.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_auth_${user}users.csv -n"
-	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_authentication.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser"${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_auth_"${user}"users.csv -n
+	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_authentication.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser ${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_auth_${user}users.csv -n"
+	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_authentication.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser "${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_auth_"${user}"users.csv -n
 
 	echo "Starting web heavy test for ${user} users"
-	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_heavy.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_webhvy_${user}users.csv -n"
-	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_heavy.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser"${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_webhvy_"${user}"users.csv -n
+	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_heavy.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser ${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_webhvy_${user}users.csv -n"
+	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_heavy.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser "${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_webhvy_"${user}"users.csv -n
 
 	echo "Starting web light test for ${user} users"
-	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_light.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_weblgt_${user}users.csv -n"
-	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_light.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser"${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_weblgt_"${user}"users.csv -n
+	echo "java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_light.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser ${user} -JrampUp 0 -JdurationMs 600 -l results/constload/trial${trial}_weblgt_${user}users.csv -n"
+	java -jar ~/apache-jmeter-5.4.3/bin/ApacheJMeter.jar -t goal-1/teastore_browse_nogui_webui_light.jmx -Jhostname 127.0.0.1 -Jport 8080 -JnumUser "${user}" -JrampUp 0 -JdurationMs 600 -l results/constload/trial"${trial}"_weblgt_"${user}"users.csv -n
     done
 fi
 
