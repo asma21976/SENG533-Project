@@ -71,14 +71,16 @@ def calculate_disk_stats(blkio_stats):
 
 def plot_statistics(result_set, container_name, start_time):
     times = [time - start_time for time in result_set['time']]
-    plt.plot(times, result_set['cpu_usage'], label=f"${container_name}: CPU Usage (%)")
-    plt.plot(times, result_set['mem_usage'], label=f"${container_name}: Memory Usage (%)")
-    plt.plot(times, result_set['disk_reads'], label=f"${container_name}: Disk reads")
-    plt.plot(times, result_set['disk_writes'], label=f"${container_name}: Disk writes")
+
+    plt.plot(times, result_set['cpu_usage'], label=f"CPU Usage (%)")
+    plt.plot(times, result_set['mem_usage'], label=f"Memory Usage (%)")
+    plt.plot(times, result_set['disk_reads'], label=f"Disk reads")
+    plt.plot(times, result_set['disk_writes'], label=f"Disk writes")
     plt.title(f'Usage stats for {container_name} container')
-    plt.legend()
+    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.show()
-    plt.savefig(f'${container_name}')
+    plt.savefig(f'{container_name}', bbox_inches='tight')
+    plt.clf()
 
 def main():
     client = docker.from_env()
