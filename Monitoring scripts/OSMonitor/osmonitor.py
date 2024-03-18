@@ -1,7 +1,12 @@
+import os
+import sys
+import csv
 import docker
 import time
 import threading
 import matplotlib.pyplot as plt
+import pathlib
+import argparse
 
 def measure_container_stats(client, container_id, results, i, stop):
     stats = client.api.stats(container_id, decode=True, stream=True)
@@ -69,17 +74,36 @@ def calculate_disk_stats(blkio_stats):
 
     return disk_stats
 
-def plot_statistics(result_set, container_name, start_time):
+def save_and_plot_statistics(result_set, container_name, start_time, args):
     times = [time - start_time for time in result_set['time']]
     plt.plot(times, result_set['cpu_usage'], label="CPU Usage (%)")
     plt.plot(times, result_set['mem_usage'], label="Memory Usage (%)")
     plt.plot(times, result_set['disk_reads'], label="Disk reads")
     plt.plot(times, result_set['disk_writes'], label="Disk writes")
-    plt.title(f'Usage stats for {container_name} container')
+    plt.title('Usage stats for ' + str(container_name) + ' container')
     plt.legend()
-    plt.show()
+    plt.savefig(os.path.join(str(args.out_dir), str(args.test_name) + '_' + str(container_name) + '_plot.png'))
+    plt.close()
+    # plt.show()
 
-def main():
+    with open(os.path.join(str(args.out_dir), str(args.test_name) + '_' + str(container_name) + '_data.csv'), mode='w') as csv_file:
+        fieldnames = ['time', 'cpu_usage', 'mem_usage', 'disk_reads', 'disk_writes']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for i in range(len(result_set['time'])):
+            writer.writerow({
+                'time': result_set['time'][i] - start_time,
+                'cpu_usage': result_set['cpu_usage'][i],
+                'mem_usage': result_set['mem_usage'][i],
+                'disk_reads': result_set['disk_reads'][i],
+                'disk_writes': result_set['disk_writes'][i]
+            })
+
+def main(args):
+    if not os.path.exists(args.out_dir):
+        os.makedirs(args.out_dir)
+
     client = docker.from_env()
     container_ids = [container.id for container in client.containers.list()]
     container_names = [container.name for container in client.containers.list()]
@@ -98,11 +122,15 @@ def main():
         threads[i].start()
 
     try:
-        time.sleep(30)
+        while True:
+            user_input = sys.stdin.readline().strip()
+            if user_input.lower() == "exit":
+                break
+        # time.sleep(3000000) # main thread sleep for an unreasonable about (so only exit is interrupt)
     except KeyboardInterrupt:
         pass
     
-    print("Stopping measurement")
+    print("Stopping measurement!!!")
 
     stop_threads = True;
 
@@ -110,8 +138,31 @@ def main():
         thread.join()
 
     for i in range(len(results)):
-        plot_statistics(results[i], container_names[i], start_time)
+        save_and_plot_statistics(results[i], container_names[i], start_time, args)
+
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--out-dir",
+        type=str,
+        default=os.path.join(
+            pathlib.Path.home(), "SENG533-Project/results/temp"
+        ),
+        help="Directory to which plots & data should be saved",
+    )
+    parser.add_argument(
+        "--test-name",
+        type=str,
+        default=os.path.join(
+            pathlib.Path.home(), "1"
+        ),
+        help="unique test identifier for saving result data",
+    )
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    main()
+    args = get_args()
+    print(args)
+    main(args)
+
