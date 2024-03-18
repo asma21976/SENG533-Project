@@ -20,11 +20,10 @@ For most reliable performance, deploy microservices on RAC
     ```
 
 #### setup for multi-instance
-Note: WebUI, Auth, and DB do not require scaling
+Note: WebUI, Auth, DB, and registry do not require scaling
 
  ```
   docker-compose -f ./TeaStore/examples/docker/docker-compose_new.yaml up -d --scale persistence={NUM_INST} --scale image={NUM_INST}--scale recommender={NUM_INST} 
-
 ```
 
 #### test instructions
