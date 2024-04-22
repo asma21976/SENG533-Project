@@ -8,10 +8,16 @@ from statsmodels.formula.api import ols
 import statsmodels.api as sm
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
-EXPERIMENT_1_TESTS = {
+MICROSERVICE_TESTS = {
     "auth": "Authentication",
     "webhvy": "WebUI Heavy Use",
     "weblgt": "WebUI Light Use",
+}
+
+SCALING_TESTS = {
+    "inst1": "1 Instance",
+    "inst2": "2 Instances",
+    "inst3": "3 Instances",
 }
 
 def load_data(filename):
@@ -37,7 +43,7 @@ def generate_figures_for_test(data_list, data_labels, figure_name):
     num_bins = int(round(avg_sqrt_samples) / 3)
 
     # make a figure showing the histograms of each distribution
-    fig, axes = plt.subplots(len(data_list), 1, figsize=(8, 2 * len(data_list)))
+    fig, axes = plt.subplots(len(data_list), 1, figsize=(7, 2 * len(data_list)))
     for i, data in enumerate(data_list):
         axes[i].hist(data, bins=num_bins)
         axes[i].set_title(f'Histogram for {figure_name} Distribution {data_labels[i]}')
@@ -50,17 +56,22 @@ def generate_figures_for_test(data_list, data_labels, figure_name):
 
     return
 
-def perform_anova_and_plot(df):
-    for key in EXPERIMENT_1_TESTS:
+def perform_experiment_analysis(df, scaling_test=False):
+    for key in MICROSERVICE_TESTS:
         # Separate test columns and remove the -1s oops
         test_cols = []
         test_labels = []
         
         for i, col in enumerate(df.iloc[0]):
             if key in col:
-                test_labels.append(col.split(key+"_")[1].split(".csv")[0])
                 test_cols.append(df.columns[i])
-    
+                if not scaling_test:
+                    # grab experiment 1 columns name
+                    test_labels.append(col.split(key+"_")[1].split(".csv")[0])
+                if scaling_test:
+                    # grab experiment 2 columns name
+                    test_labels.append(SCALING_TESTS.get(col.split("_")[2]))        
+
         # Perform ANOVA on auth columns
         data_list = [df[col].dropna()[1:].astype(float) for col in test_cols]
         df_data = pd.DataFrame(data_list).T
@@ -86,35 +97,28 @@ def perform_anova_and_plot(df):
             print(tukey_results)
 
         # plot figures for final report
-        generate_figures_for_test(data_list, test_labels, EXPERIMENT_1_TESTS.get(key))
+        figure_label= MICROSERVICE_TESTS.get(key)
+        if scaling_test:
+            figure_label += " Horizontal Scaling"
+        generate_figures_for_test(data_list, test_labels, figure_label)
 
-def compare_with_10users(auth_columns, p_values, df):
-    # Compare with "10users" column
-    ten_users_column = [col for col in df.columns if "10users" in col][0]
-    significant_columns = []
-
-    for col, p_value in zip(auth_columns, p_values):
-        if p_value < 0.05:  # significance level
-            if col != ten_users_column:
-                significant_columns.append(col)
-
-    return significant_columns
 
 def main(args):
-    df = load_data(args.combined_file)
+    exp1_df = load_data(args.experiment_1_file)
+    exp2_df = load_data(args.experiment_2_file)
 
     # Perform ANOVA as statistical analysis
-    perform_anova_and_plot(df)
+    perform_experiment_analysis(exp1_df)
+    perform_experiment_analysis(exp2_df, scaling_test=True)
 
-    # Compare with "10users" column
-    # significant_columns = compare_with_10users(auth_columns, p_values, df)
-
-    # print("Columns significantly different from '10users':", significant_columns)
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--combined-file", type=str,
+        "--experiment-1-file", type=str,
+    )
+    parser.add_argument(
+        "--experiment-2-file", type=str,
     )
     return parser.parse_args()
 

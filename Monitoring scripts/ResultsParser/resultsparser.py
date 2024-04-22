@@ -20,7 +20,8 @@ def parse_output(output, filename):
   print("end reading")
 
   # Adjust times to start at 0
-  times = [time - min(times) for time in times]
+  min_time = min(times)
+  times = [time - min_time for time in times]
   print("end adjusting time")
 
   # Sort times and response times to be in chronological order
@@ -34,7 +35,7 @@ def parse_output(output, filename):
 
   # Create or load the DataFrame
   try:
-      df = pd.read_csv("combined_response_times.csv")
+      df = pd.read_csv("results/combined_scaling_response_times.csv")
   except FileNotFoundError:
       df = pd.DataFrame()
 
@@ -52,7 +53,7 @@ def parse_output(output, filename):
   new_df[filename] = list(response_times) + [-1] * (max_length - len(response_times))
 
   # Save the new df to the old CSV
-  new_df.to_csv("results/combined_response_times.csv", index=False)
+  new_df.to_csv("results/combined_scaling_response_times.csv", index=False)
 
   plt.title("Response times of requests over duration of test")
   plt.xlabel("Time (seconds)")
