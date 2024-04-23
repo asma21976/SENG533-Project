@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # for anova
+from scipy.stats import chi2_contingency
 from statsmodels.formula.api import ols
 import statsmodels.api as sm
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
@@ -58,19 +59,25 @@ def generate_figures_for_test(data_list, data_labels, figure_name):
 
 def perform_experiment_analysis(df, scaling_test=False):
     for key in MICROSERVICE_TESTS:
+        print(f"\n\nStarting {key} Test Analysis")
         # Separate test columns and remove the -1s oops
         test_cols = []
         test_labels = []
+        test_distributions = 3 if scaling_test else 4
         
         for i, col in enumerate(df.iloc[0]):
             if key in col:
                 test_cols.append(df.columns[i])
                 if not scaling_test:
                     # grab experiment 1 columns name
-                    test_labels.append(col.split(key+"_")[1].split(".csv")[0])
+                    label = col.split(key+"_")[1].split(".csv")[0]
+                    label = 'baseline' if '10users' in label else label
+                    test_labels.append(label)
                 if scaling_test:
                     # grab experiment 2 columns name
-                    test_labels.append(SCALING_TESTS.get(col.split("_")[2]))        
+                    label = SCALING_TESTS.get(col.split("_")[2])
+                    label = 'baseline' if '1 Instance' in label else label
+                    test_labels.append(label) 
 
         # Perform ANOVA on auth columns
         data_list = [df[col].dropna()[1:].astype(float) for col in test_cols]
@@ -78,23 +85,26 @@ def perform_experiment_analysis(df, scaling_test=False):
         df_data = df_data.fillna(df_data.mean())
         df_data.columns = test_labels
 
-        # Melt the DataFrame to long format for ols
-        df_melted = df_data.melt(var_name='Group', value_name='Value')
-        model = ols('Value ~ C(Group)', data=df_melted).fit()
+        num_bins = int(np.sqrt(len(df_data['baseline'])))
+        for col in df_data.columns:
+            df_data[col + '_bin'] = pd.cut(df_data[col], bins=num_bins, labels=False)
 
-        # Perform ANOVA
-        anova_table = sm.stats.anova_lm(model, typ=2)
-        p_value = anova_table.loc['C(Group)', 'PR(>F)']
-        print("\n\nANOVA RESULTS")
-        print(anova_table)
-        print(p_value)
-        if p_value < 0.05:
-            print ("Distributions are statistically different... continuing to pairwise comparisons")
+        # Save the binned data for the baseline
+        baseline = df_data['baseline_bin']
+        results = []
 
-            # Compare each pair of response time distributions using a post hoc tukey test 
-            tukey_results = pairwise_tukeyhsd(df_melted['Value'], df_melted['Group'])
-            print("\n\nPAIRWISE DISTRIBUTION COMPARISONS")
-            print(tukey_results)
+        # Loop through the distributions (hard coded to work for both)
+        for column in df_data.columns[1:test_distributions]:
+            to_compare = df_data[column + '_bin']
+            contingency_table = pd.crosstab(baseline, to_compare)
+            stat, p, _, _ = chi2_contingency(contingency_table)
+
+            if p < 0.01:
+                results.append(True)
+            else:
+                results.append(False)
+
+        print("Chi Square Results (T=Significant Difference, F=No Difference):\n", results)
 
         # plot figures for final report
         figure_label= MICROSERVICE_TESTS.get(key)
